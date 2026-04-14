@@ -1,0 +1,29 @@
+* {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+body {
+    background-color: rgb(110, 109, 204);
+}
+
+.div1 {
+    background-color: rgb(255, 255, 255); /* */
+    border: 0.2px solid;
+    border-radius: 20px;
+    margin: auto;
+    height: 330px;
+    width: 400px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.div2 {
+    margin-left: 10px;
+}
+
+input {
+    background-color: rgb(219, 219, 219);
+}
+
