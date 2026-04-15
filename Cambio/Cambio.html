@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambio</title>
+    <link rel="stylesheet" href="api.css">
+</head>
+<body>
+    <div class="M">
+    <H1>Cambio de Moedas</H1>
+    <form action="campo"> <!-- cria um formulario -->
+            <label>Moeda:</label>
+            <select id="moeda"> <!-- cria campos de seleção com a moeda desejada -->
+                    <option value="USD">Dólar (USD)</option> 
+                    <option value="EUR">Euro (EUR)</option>
+                    <option value="GBP">Libra (GBP)</option>
+                </select>
+                <div class="campo">
+                <label>Data (AAAA-MM-DD):</label>
+
+                <input type="date" id="data">
+            </div>
+
+            <button type="button" onclick="buscarMOEDA()">Consultar</button> <!-- botão para consulta -->
+        </form>
+
+        <h3>Resultado:</h3>
+
+        <div id="resultado"> <!-- div responsavel por trazer a resposta da API-->
+            <textarea id="Resultado" rows="8" cols="40"></textarea>
+        </div>
+
+    </form>
+    </div>
+
+ 
+</body>
+<script>
+
+    async function buscarMOEDA() { 
+
+        const moeda = document.getElementById('moeda').value // puxa os dados do HTML pelo ID
+        const data = document.getElementById('data').value // puxa os dados do HTML pelo ID
+
+        const url = `https://brasilapi.com.br/api/cambio/v1/cotacao/${moeda}/${data}`
+        try {
+            const response = await fetch(url)
+            if (!response.ok) {
+                throw new Error("Não foi possível consultar a API") // trata o erro caso não localize a API
+            }
+
+
+            const dados = await response.json()
+
+            const cotacao = dados.cotacoes[0]
+
+            document.getElementById('Resultado').value = // puxa o ID do HTML e repassa os dados de volta para o cliente 
+                `
+Moeda: ${moeda} 
+Data: ${data} 
+Compra: ${cotacao.cotacao_compra} 
+Venda: ${cotacao.cotacao_venda} 
+                `
+        } catch (error) {
+            alert("erro: " + error.message)  // diz qual erro ocorreu em caso de falha
+        }
+    }
+</script>
+
+</html>

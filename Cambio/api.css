@@ -1,0 +1,16 @@
+* {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+body{
+    background-color: rgb(77, 127, 201); /* cria um simples porém razoavel fundo para o teste da API */
+}
+
+.M{ /* div que está todo o conteudo do fumulario para centralizar e organizar melhor */
+    background-color: rgb(255, 255, 255);
+    border: 0.4px solid;
+    border-radius: 20px;
+    margin: auto;
+    height: 350px;
+    width: 450px;
+}
