@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Consulta DDD</title>
+ <link rel="shortcut icon" href="Correios.webp">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #ffffff;
+    }
+
+    .container {
+      background: #cacaca;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1)
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    select{
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+    
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+      background-color: rgb(150, 147, 147);
+    }
+
+    .resultado {
+      margin-top: 20px;
+    }
+
+    .estado {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      max-height: 200px;
+      overflow-y: auto;
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Consulta de DDD</h2>
+
+  <select id="dddSelect">
+    <option value="">Selecione um DDD</option>
+  </select>
+
+  <button onclick="buscarDDD()">Buscar</button>
+
+  <div class="resultado">
+    <p class="estado" id="estado"></p>
+    <ul id="cidades"></ul>
+  </div>
+</div>
+
+<script>
+  // preenche o select com os DDDs 
+  const select = document.getElementById("dddSelect");
+
+  for (let i = 10; i <= 99; i++) {
+    const option = document.createElement("option");
+    option.value = i;
+    option.textContent = i;
+    select.appendChild(option);
+  }
+
+  async function buscarDDD() {
+    const ddd = select.value;
+
+    if (!ddd) {
+      alert("Selecione um DDD");
+      return;
+    }
+
+    try {
+      const response = await fetch(`https://brasilapi.com.br/api/ddd/v1/${ddd}`);
+
+      if (!response.ok) {
+        throw new Error("DDD não encontrado");
+      }
+
+      const data = await response.json();
+
+      // estado
+      document.getElementById("estado").innerText = "Estado: " + data.state;
+
+      // cidades
+      const lista = document.getElementById("cidades");
+      lista.innerHTML = "";
+
+      data.cities.forEach(cidade => {
+        const li = document.createElement("li");
+        li.textContent = cidade;
+        lista.appendChild(li);
+      });
+
+    } catch (error) {
+      document.getElementById("estado").innerText = "";
+      document.getElementById("cidades").innerHTML = "";
+      alert(error.message);
+    }
+  }
+</script>
+
+</body>
+</html>
