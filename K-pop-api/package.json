@@ -1,0 +1,11 @@
+{
+    "nome": "kpop-api",
+    "version": "1.0.0",
+    "description": "API de gerenciamento de bandas de K-pop",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js" 
+    },
+    "author": "Grupo: Ian, Giovanni, Miguel Batista",
+    "license": "MIT"
+}
